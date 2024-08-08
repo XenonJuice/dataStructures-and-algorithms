@@ -1,0 +1,4 @@
+C:/Users/user/CLionProjects/Search algorithm/cmake-build-debug/CMakeFiles/Search_algorithm.dir
+C:/Users/user/CLionProjects/Search algorithm/cmake-build-debug/CMakeFiles/Search_algorithm_exec.dir
+C:/Users/user/CLionProjects/Search algorithm/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/user/CLionProjects/Search algorithm/cmake-build-debug/CMakeFiles/rebuild_cache.dir
