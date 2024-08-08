@@ -1,0 +1,8 @@
+# ninja log v6
+2	133	7447955975935819	CMakeFiles/Search_algorithm.dir/library.c.obj	310616e28943ac60
+51	86	7448007855943536	libSearch_algorithm.a	10d90a359819f118
+7	51	7448007855498839	CMakeFiles/Search_algorithm_exec.dir/STACK.c.obj	eeba706d90271ca8
+2	42	7448008065294615	CMakeFiles/Search_algorithm_exec.dir/main.c.obj	74cfa92cc20f1557
+43	90	7448008065702666	Search_algorithm_exec.exe	1e9fd8f9b74fe8b6
+1	159	7448026707213106	build.ninja	c70bfe8183721510
+3	51	7448007855463754	CMakeFiles/Search_algorithm.dir/STACK.c.obj	404cb4ca928bb43e
