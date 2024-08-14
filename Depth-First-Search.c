@@ -10,27 +10,28 @@
 
 #include "STACK.h"
 //前，中，后序遍历
-void preOrderTraversal(const TreeNode * root,Stack *stack) {
-    if(root ==null) {
+void preOrderTraversal(const TreeNode *root, Stack *stack) {
+    if (root == null) {
         printf("root is NULL");
         return;
     }
     // push rootNode into stack
-    push(&stack,root);
-    while(!isEmpty(stack)) {
-        const TreeNode * topStackNode = peek(stack);
+    push(&stack, root);
+    while (!isEmpty(stack)) {
+        const TreeNode *topStackNode = peek(stack);
         printf("%d —>", topStackNode->val);
         const TreeNode *tmp = pop(&stack);
-        free((void*)pop(&stack));
         // 将根节点的右子节点入栈
-        if(tmp->right !=null) {
-            push(&stack,tmp->right);
+        if (tmp->right != null) {
+            push(&stack, tmp->right);
         }
         // 将根节点的左子节点入栈
-        if (tmp->left !=null) {
-            push(&stack,tmp->left);
+        if (tmp->left != null) {
+            push(&stack, tmp->left);
         }
     }
 }
-void inOrderTraversal(TreeNode * root);
-void postOrderTraversal(TreeNode * root);
+
+void inOrderTraversal(const TreeNode *root, Stack *stack);
+
+void postOrderTraversal(const TreeNode *root, Stack *stack);

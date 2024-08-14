@@ -51,19 +51,19 @@ build cmake_object_order_depends_target_Search_algorithm: phony || CMakeFiles/Se
 
 build CMakeFiles/Search_algorithm.dir/library.c.obj: C_COMPILER__Search_algorithm_unscanned_Debug C$:/Users/user/CLionProjects/Search$ algorithm/library.c || cmake_object_order_depends_target_Search_algorithm
   DEP_FILE = CMakeFiles\Search_algorithm.dir\library.c.obj.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -Wall -Wextra -Werror -g -std=gnu2x -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Search_algorithm.dir
   OBJECT_FILE_DIR = CMakeFiles\Search_algorithm.dir
 
 build CMakeFiles/Search_algorithm.dir/STACK.c.obj: C_COMPILER__Search_algorithm_unscanned_Debug C$:/Users/user/CLionProjects/Search$ algorithm/STACK.c || cmake_object_order_depends_target_Search_algorithm
   DEP_FILE = CMakeFiles\Search_algorithm.dir\STACK.c.obj.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -Wall -Wextra -Werror -g -std=gnu2x -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Search_algorithm.dir
   OBJECT_FILE_DIR = CMakeFiles\Search_algorithm.dir
 
 build CMakeFiles/Search_algorithm.dir/Depth-First-Search.c.obj: C_COMPILER__Search_algorithm_unscanned_Debug C$:/Users/user/CLionProjects/Search$ algorithm/Depth-First-Search.c || cmake_object_order_depends_target_Search_algorithm
   DEP_FILE = CMakeFiles\Search_algorithm.dir\Depth-First-Search.c.obj.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -Wall -Wextra -Werror -g -std=gnu2x -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Search_algorithm.dir
   OBJECT_FILE_DIR = CMakeFiles\Search_algorithm.dir
 
@@ -76,7 +76,7 @@ build CMakeFiles/Search_algorithm.dir/Depth-First-Search.c.obj: C_COMPILER__Sear
 # Link the static library libSearch_algorithm.a
 
 build libSearch_algorithm.a: C_STATIC_LIBRARY_LINKER__Search_algorithm_Debug CMakeFiles/Search_algorithm.dir/library.c.obj CMakeFiles/Search_algorithm.dir/STACK.c.obj CMakeFiles/Search_algorithm.dir/Depth-First-Search.c.obj
-  LANGUAGE_COMPILE_FLAGS = -g
+  LANGUAGE_COMPILE_FLAGS = -Wall -Wextra -Werror -g
   OBJECT_DIR = CMakeFiles\Search_algorithm.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -94,19 +94,19 @@ build cmake_object_order_depends_target_Search_algorithm_exec: phony || cmake_ob
 
 build CMakeFiles/Search_algorithm_exec.dir/main.c.obj: C_COMPILER__Search_algorithm_exec_unscanned_Debug C$:/Users/user/CLionProjects/Search$ algorithm/main.c || cmake_object_order_depends_target_Search_algorithm_exec
   DEP_FILE = CMakeFiles\Search_algorithm_exec.dir\main.c.obj.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -Wall -Wextra -Werror -g -std=gnu2x -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Search_algorithm_exec.dir
   OBJECT_FILE_DIR = CMakeFiles\Search_algorithm_exec.dir
 
 build CMakeFiles/Search_algorithm_exec.dir/STACK.c.obj: C_COMPILER__Search_algorithm_exec_unscanned_Debug C$:/Users/user/CLionProjects/Search$ algorithm/STACK.c || cmake_object_order_depends_target_Search_algorithm_exec
   DEP_FILE = CMakeFiles\Search_algorithm_exec.dir\STACK.c.obj.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -Wall -Wextra -Werror -g -std=gnu2x -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Search_algorithm_exec.dir
   OBJECT_FILE_DIR = CMakeFiles\Search_algorithm_exec.dir
 
 build CMakeFiles/Search_algorithm_exec.dir/Depth-First-Search.c.obj: C_COMPILER__Search_algorithm_exec_unscanned_Debug C$:/Users/user/CLionProjects/Search$ algorithm/Depth-First-Search.c || cmake_object_order_depends_target_Search_algorithm_exec
   DEP_FILE = CMakeFiles\Search_algorithm_exec.dir\Depth-First-Search.c.obj.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -Wall -Wextra -Werror -g -std=gnu2x -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Search_algorithm_exec.dir
   OBJECT_FILE_DIR = CMakeFiles\Search_algorithm_exec.dir
 
@@ -119,7 +119,7 @@ build CMakeFiles/Search_algorithm_exec.dir/Depth-First-Search.c.obj: C_COMPILER_
 # Link the executable Search_algorithm_exec.exe
 
 build Search_algorithm_exec.exe: C_EXECUTABLE_LINKER__Search_algorithm_exec_Debug CMakeFiles/Search_algorithm_exec.dir/main.c.obj CMakeFiles/Search_algorithm_exec.dir/STACK.c.obj CMakeFiles/Search_algorithm_exec.dir/Depth-First-Search.c.obj | libSearch_algorithm.a || libSearch_algorithm.a
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -Werror -g
   LINK_LIBRARIES = libSearch_algorithm.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Search_algorithm_exec.dir
   POST_BUILD = cd .
