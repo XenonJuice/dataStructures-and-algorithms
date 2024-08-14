@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.28)
 project(Search_algorithm C)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
 
-set(CMAKE_C_STANDARD 99)
-
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_C_STANDARD 23)
+message("C Compiler flags: ${CMAKE_C_FLAGS}")
 add_library(Search_algorithm STATIC library.c
         STACK.h
         STACK.c
