@@ -48,10 +48,10 @@ bool isEmpty(const Stack *stack) {
  * @param stack 指向栈的指针，通过该指针可以访问栈顶元素
  */
 void printStack(const Stack *stack) {
+    printf("print out the stack\n");
     const Stack *tmp = stack;
     while (!isEmpty(tmp)) {
         printf("%d -> ", tmp->node->val);
-
         tmp = tmp->next;
     }
     printf("NULL\n");
@@ -73,7 +73,7 @@ Stack *createStack() {
 // @brief 销毁栈
 void destoryStack(Stack *stack) {
     if (isEmpty(stack)) {
-        printf("stack is NULL");
+        printf("\ndestoryStack : stack is NULL\n");
         return;
     }
     while (!isEmpty(stack)) {
@@ -86,7 +86,7 @@ void destoryStack(Stack *stack) {
 TreeNode *createTreeNode(int val) {
     TreeNode *node = (TreeNode *) malloc(sizeof(TreeNode));
     if (node == null) {
-        printf("malloc error");
+        printf("malloc error\n");
         return null;
     }
     node->val = val;
@@ -96,13 +96,13 @@ TreeNode *createTreeNode(int val) {
 }
 
 // @brief 创建一个树结构
-TreeNode *createTreeStructure(int val, TreeNode *left, TreeNode *right) {
+TreeNode *createTreeStructure(TreeNode *root, TreeNode *left, TreeNode *right) {
     TreeNode *node = (TreeNode *) malloc(sizeof(TreeNode));
     if (node == null) {
         printf("malloc error");
         return null;
     }
-    node->val = val;
+    node=root;
     node->left = left;
     node->right = right;
     return node;
@@ -138,5 +138,4 @@ void destoryTree(TreeNode *root) {
     }
     printf("destory node %d\n", root->val);
     free(root);
-    printf("destory tree\n");
 }
