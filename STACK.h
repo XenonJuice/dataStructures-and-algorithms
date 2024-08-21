@@ -34,7 +34,7 @@ void destoryStack(Stack *stack);
 
 TreeNode *createTreeNode(int val);
 
-TreeNode *createTreeStructure(int val, TreeNode *left, TreeNode *right);
+TreeNode *createTreeStructure(TreeNode * root, TreeNode *left, TreeNode *right);
 
 void destoryTree(TreeNode *root);
 
