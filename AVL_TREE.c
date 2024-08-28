@@ -52,7 +52,7 @@ int getBalanceFactor(AVL_TreeNode *node) {
 // 查找节点
 AVL_TreeNode *find(AVL_TreeNode *root, int val) {
     if (root == NULL) {
-        printf("查找节点: 当前节点为空\n");
+        printf("查找节点: 当前树为空\n");
         return NULL;
     }
     AVL_TreeNode *tmp = root;
@@ -69,6 +69,10 @@ AVL_TreeNode *find(AVL_TreeNode *root, int val) {
     return NULL;
 }
 
+
+/* 尝试使用迭代来实现对AVL树的插入，但是似乎不太现实。
+ * 考虑到用栈来记录每一个遍历过的节点，但是中间发生旋转，栈中存储的节点关系会发生变化，并不可行
+ * 考虑到用栈来记录每一个遍历过的节点，当从底部第一个节点发生旋转时，从根节点重新遍历到当前节点入栈，时间复杂度过高，不可行。
 // 插入节点
 AVL_TreeNode *insert(AVL_TreeNode *root, int val) {
     if (root == NULL) {
@@ -81,7 +85,7 @@ AVL_TreeNode *insert(AVL_TreeNode *root, int val) {
      * 这里如果将pre声明为NULL，
      * ide会一直提示警告信息，
      * 但是我不想看到警告信息
-     */
+     #1#
     // AVL_TreeNode *pre = NULL;
     AVL_TreeNode *pre = root;
     while (cur != NULL) {
@@ -101,6 +105,7 @@ AVL_TreeNode *insert(AVL_TreeNode *root, int val) {
     if (pre->val > val) pre->left = newNode;
     return newNode;
 }
+*/
 
 // 左旋
 AVL_TreeNode *rotateLeft(AVL_TreeNode *node) {
