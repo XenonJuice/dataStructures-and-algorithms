@@ -5,6 +5,12 @@
 #include "AVL_TREE.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+/*only used in this file*/
+AVL_TreeNode *getMAX(AVL_TreeNode *root);
+
+AVL_TreeNode *getMIN(AVL_TreeNode *root);
+
 // 创建一个节点
 AVL_TreeNode *createNode(int val) {
     AVL_TreeNode *newNode = malloc(sizeof(AVL_TreeNode));
@@ -34,7 +40,7 @@ void updateHeight(AVL_TreeNode *node) {
     }
     /*若当前节点的左子树的高度>=右子树的高度，则当前节点的高度为左子树高度+1；反之亦然*/
     int leftChildTreeHeight = getHeight(node->left);
-    int rightChildTreeHeight = getHeight(node->left);
+    const int rightChildTreeHeight = getHeight(node->left);
     if (leftChildTreeHeight >= rightChildTreeHeight) node->height = leftChildTreeHeight + 1;
     if (leftChildTreeHeight < rightChildTreeHeight) node->height = rightChildTreeHeight + 1;
     printf("更新节点高度: 当前节点为:%d\n", node->height);
@@ -106,6 +112,97 @@ AVL_TreeNode *insert(AVL_TreeNode *root, int val) {
     return newNode;
 }
 */
+
+// 插入节点
+AVL_TreeNode *insert(AVL_TreeNode *root, int val) {
+    // 节点为NULL时，直接返回插入的节点
+    if (root == NULL) {
+        return createNode(val);
+    }
+    // 递归直到一个为NULL的插入位置
+    if (val < root->val) {
+        root->left = insert(root->left, val);
+    } else if (val > root->val) {
+        root->right = insert(root->right, val);
+    } else {
+        printf("已存在重复值：%d，插入失败\n", val);
+        return root;
+    }
+    updateHeight(root);
+    root = rotate(root);
+    return root;
+}
+
+// 删除节点
+AVL_TreeNode *delete(AVL_TreeNode *root, int val) {
+    if (root == NULL) {
+        printf("删除：根节点为空！");
+        return NULL;
+    }
+    if (val < root->val) {
+        root = delete(root->left, val);
+    } else if (val > root->val) {
+        root = delete(root->right, val);
+        // find the target value
+    } else {
+        // 如果该节点包含左右两个子树
+        if (root->left && root->right) {
+            // 若左子树高度大于右子树高度，则将该节点替换为左子树中的最大节点
+            if (getHeight(root->left) > getHeight(root->right)) {
+                AVL_TreeNode *max = getMAX(root->left);
+                root->val = max->val;
+                root->left = delete(root->left, max->val);
+                // 反之亦然
+            } else {
+                AVL_TreeNode *min = getMIN(root->right);
+                root->val = min->val;
+                root->right = delete(root->right, min->val);
+            }
+        }
+        // 若包含一个节点，则直接将该节点替换为该节点的子节点。此处也可处理不包含节点的情况
+        if (root->left == NULL || root->right == NULL) {
+            AVL_TreeNode *tmp = root;
+            root = root->left == NULL ? root->right : root->right;
+            free(tmp);
+        }
+    }
+    if (root == NULL) {
+        printf("删除节点：树已被清空！\n");
+        return root;
+    }
+    updateHeight(root);
+    root = rotate(root);
+    return root;
+}
+
+// 获取最大节点
+AVL_TreeNode *getMAX(AVL_TreeNode *root) {
+    if (root == NULL) {
+        printf("树为空，无法获取最大节点。\n");
+        return NULL;
+    }
+    // 循环查找右子树中的最右侧节点
+    while (root->right != NULL) {
+        root = root->right;
+    }
+    printf("获取最大节点: 最大节点为: %d\n", root->val);
+    return root;
+}
+
+// 获取最小节点
+AVL_TreeNode *getMIN(AVL_TreeNode *root) {
+    if (root == NULL) {
+        printf("树为空，无法获取最大节点。\n");
+        return NULL;
+    }
+    // 循环查找左子树中的最左侧节点
+    while (root->left != NULL) {
+        root = root->left;
+    }
+    printf("获取最小节点: 最小节点为: %d\n", root->val);
+    return root;
+}
+
 
 // 左旋
 AVL_TreeNode *rotateLeft(AVL_TreeNode *node) {
