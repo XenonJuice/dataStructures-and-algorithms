@@ -87,11 +87,6 @@ AVL_TreeNode *insert(AVL_TreeNode *root, int val) {
         return newRootNode;
     }
     AVL_TreeNode *cur = root;
-    /*
-     * 这里如果将pre声明为NULL，
-     * ide会一直提示警告信息，
-     * 但是我不想看到警告信息
-     #1#
     // AVL_TreeNode *pre = NULL;
     AVL_TreeNode *pre = root;
     while (cur != NULL) {
