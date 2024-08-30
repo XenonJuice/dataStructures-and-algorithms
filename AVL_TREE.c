@@ -3,6 +3,7 @@
 //
 
 #include "AVL_TREE.h"
+#include "Queue.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,6 +11,8 @@
 AVL_TreeNode *getMAX(AVL_TreeNode *root);
 
 AVL_TreeNode *getMIN(AVL_TreeNode *root);
+
+void bfs(AVL_TreeNode *root);
 
 // 创建一个节点
 AVL_TreeNode *createNode(int val) {
@@ -49,7 +52,7 @@ void updateHeight(AVL_TreeNode *node) {
 // 获取平衡因子
 int getBalanceFactor(AVL_TreeNode *node) {
     if (node == NULL) {
-        printf("获取平衡因子：当前节点为空");
+        printf("获取平衡因子：当前节点为空\n");
         return 0;
     }
     return getHeight(node->left) - getHeight(node->right);
@@ -131,7 +134,7 @@ AVL_TreeNode *insert(AVL_TreeNode *root, int val) {
 // 删除节点
 AVL_TreeNode *delete(AVL_TreeNode *root, int val) {
     if (root == NULL) {
-        printf("删除：根节点为空！");
+        printf("删除：根节点为空！\n");
         return NULL;
     }
     if (val < root->val) {
@@ -258,4 +261,42 @@ AVL_TreeNode *rotate(AVL_TreeNode *node) {
 
     // 无需旋转
     return node;
+}
+
+// @brief bfs
+void bfs(AVL_TreeNode *root) {
+    if (root == NULL) {
+        printf("bfs:树为空，无法打印！\n");
+        return;
+    }
+    printf("bfs结果: \n");
+    Queue *queue = createQueue();
+    enQueue(queue, root);
+    while (!isEmptyQueue(queue)) {
+        AVL_TreeNode *tmp = deQueue(queue);
+        printf("节点: %d, 左子节点为:%d , 右子节点为:%d ,\n",
+               tmp->val, tmp->left->val, tmp->right->val);
+        if (tmp->left != NULL) {
+            enQueue(queue, tmp->left);
+        }
+        if (tmp->right != NULL) {
+            enQueue(queue, tmp->left);
+        }
+    }
+}
+
+// @brief 销毁AVL树
+void destoryAVLTree(AVL_TreeNode *root) {
+    if (root == NULL) {
+        printf("销毁AVL树：树为空，无法销毁！\n");
+        return;
+    }
+    if (root->left != NULL) {
+        destoryAVLTree(root->left);
+    }
+    if (root->right != NULL) {
+        destoryAVLTree(root->right);
+    }
+    printf("销毁节点: %d\n", root->val);
+    free(root);
 }
