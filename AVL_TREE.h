@@ -44,9 +44,12 @@ AVL_TreeNode *rotateRight(AVL_TreeNode *node);
 // 旋转
 AVL_TreeNode *rotate(AVL_TreeNode *node);
 
-// 打印二叉树
-void printTree(AVL_TreeNode *root);
+// bfs 打印二叉树
+void bfs(AVL_TreeNode *root);
 
 // 销毁二叉树
-void destroyTree(AVL_TreeNode *root);
+void destroyAVLTree(AVL_TreeNode *root);
+
+// 打印二叉树
+void printTree(AVL_TreeNode *root, int space);
 #endif //AVL_TREE_H

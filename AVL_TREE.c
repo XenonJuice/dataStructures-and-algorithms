@@ -43,10 +43,9 @@ void updateHeight(AVL_TreeNode *node) {
     }
     /*若当前节点的左子树的高度>=右子树的高度，则当前节点的高度为左子树高度+1；反之亦然*/
     int leftChildTreeHeight = getHeight(node->left);
-    const int rightChildTreeHeight = getHeight(node->left);
-    if (leftChildTreeHeight >= rightChildTreeHeight) node->height = leftChildTreeHeight + 1;
-    if (leftChildTreeHeight < rightChildTreeHeight) node->height = rightChildTreeHeight + 1;
-    printf("更新节点高度: 当前节点为:%d\n", node->height);
+    int rightChildTreeHeight = getHeight(node->right);
+    node->height = (leftChildTreeHeight >= rightChildTreeHeight) ? leftChildTreeHeight + 1 : rightChildTreeHeight + 1;
+    printf("更新节点高度: 当前节点为:%d,节点高度为:%d\n", node->val, node->height);
 }
 
 // 获取平衡因子
@@ -209,9 +208,9 @@ AVL_TreeNode *rotateLeft(AVL_TreeNode *node) {
     grandChild = child->left;
     child->left = node;
     node->right = grandChild;
-    // 更新两个被重新连接的节点的高度 ： childPtr nodePtr
-    updateHeight(child);
+    // 更新两个被重新连接的节点的高度 ：  nodePtr childPtr
     updateHeight(node);
+    updateHeight(child);
     // 返回的是重新成为子树根节点的child节点
     return child;
 }
@@ -223,9 +222,10 @@ AVL_TreeNode *rotateRight(AVL_TreeNode *node) {
     grandChild = child->right;
     child->right = node;
     node->left = grandChild;
-    // 更新两个被重新连接的节点的高度 ： childPtr nodePtr
-    updateHeight(child);
+    // 更新两个被重新连接的节点的高度 ：nodePtr childPtr
     updateHeight(node);
+    updateHeight(child);
+
     // 返回的是重新成为子树根节点的child节点
     return child;
 }
@@ -247,7 +247,7 @@ AVL_TreeNode *rotate(AVL_TreeNode *node) {
         if (getBalanceFactor(node->left) >= 0) {
             return rotateRight(node);
         }
-        node->left = rotateLeft(node);
+        node->left = rotateLeft(node->left);
         return rotateRight(node);
     }
     // 右偏树
@@ -255,7 +255,7 @@ AVL_TreeNode *rotate(AVL_TreeNode *node) {
         if (getBalanceFactor(node->right) <= 0) {
             return rotateLeft(node);
         }
-        node->right = rotateRight(node);
+        node->right = rotateRight(node->right);
         return rotateLeft(node);
     }
 
@@ -272,31 +272,70 @@ void bfs(AVL_TreeNode *root) {
     printf("bfs结果: \n");
     Queue *queue = createQueue();
     enQueue(queue, root);
+
     while (!isEmptyQueue(queue)) {
         AVL_TreeNode *tmp = deQueue(queue);
-        printf("节点: %d, 左子节点为:%d , 右子节点为:%d ,\n",
-               tmp->val, tmp->left->val, tmp->right->val);
+
+        // 打印当前节点和它的左右子节点，检查 NULL
+        if (tmp->left == NULL && tmp->right != NULL) {
+            printf("节点: %d, 左子节点为:NULL , 右子节点为:%d ,\n",
+                   tmp->val, tmp->right->val);
+        } else if (tmp->right == NULL && tmp->left != NULL) {
+            printf("节点: %d, 左子节点为:%d , 右子节点为:NULL ,\n",
+                   tmp->val, tmp->left->val);
+        } else if (tmp->left != NULL && tmp->right != NULL) {
+            printf("节点: %d, 左子节点为:%d , 右子节点为:%d ,\n",
+                   tmp->val, tmp->left->val, tmp->right->val);
+        } else {
+            printf("节点: %d, 左子节点为:NULL , 右子节点为:NULL ,\n",
+                   tmp->val);
+        }
+
+        // 把左右子节点加入队列
         if (tmp->left != NULL) {
             enQueue(queue, tmp->left);
         }
         if (tmp->right != NULL) {
-            enQueue(queue, tmp->left);
+            enQueue(queue, tmp->right);
         }
     }
+    destroyQueue(queue);
 }
 
 // @brief 销毁AVL树
-void destoryAVLTree(AVL_TreeNode *root) {
+void destroyAVLTree(AVL_TreeNode *root) {
     if (root == NULL) {
         printf("销毁AVL树：树为空，无法销毁！\n");
         return;
     }
     if (root->left != NULL) {
-        destoryAVLTree(root->left);
+        destroyAVLTree(root->left);
     }
     if (root->right != NULL) {
-        destoryAVLTree(root->right);
+        destroyAVLTree(root->right);
     }
-    printf("销毁节点: %d\n", root->val);
+    printf("销毁AVL树:销毁节点: %d\n", root->val);
     free(root);
+}
+
+
+// 打印二叉树（以根节点作为入口）
+void printTree(AVL_TreeNode *root, int space) {
+    if (root == NULL)
+        return;
+
+    // 增加间隔，表示树的层级
+    space += 15;
+
+    // 先打印右子树
+    printTree(root->right, space);
+
+    // 打印当前节点
+    printf("\n");
+    for (int i = 10; i < space; i++)
+        printf(" ");
+    printf("%d\n", root->val);
+
+    // 打印左子树
+    printTree(root->left, space);
 }
