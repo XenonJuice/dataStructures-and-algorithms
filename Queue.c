@@ -56,13 +56,11 @@ int isEmptyQueue(Queue *queue) {
 }
 
 // @brief 销毁队列
-void destoryQueue(Queue *queue) {
-    if (isEmptyQueue(queue)) {
-        printf("销毁队列:队列为空，无需销毁\n");
-        return;
-    }
+void destroyQueue(Queue *queue) {
     while (!isEmptyQueue(queue)) {
         deQueue(queue);
     }
+    printf("销毁队列:队列元素销毁完成\n");
     free(queue);
+    printf("销毁队列:队列销毁完成\n");
 }
