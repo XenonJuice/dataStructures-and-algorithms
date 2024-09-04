@@ -4,17 +4,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Depth-First-Search.h"
-#include "STACK.h"
+#include "AVL_TREE.h"
 
 
 int main() {
     system("chcp 65001");
     printf("Hello, Excel!\n");
-    // 栈结构测试
-
-    // 前序遍历测试
-    //Stack *testStack2 = null;
+    // test the avl tree
+    AVL_TreeNode *root = NULL;
+    for (int i = 0; i < 20; i++) {
+        root = insert(root, i);
+    }
+    bfs(root);
+    printTree(root, 0);
+    destroyAVLTree(root);
 
     getchar();
     return 0;
