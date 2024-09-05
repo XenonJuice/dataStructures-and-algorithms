@@ -14,6 +14,8 @@ add_library(Search_algorithm STATIC
         AVL_TREE.h
         Queue.h
         Queue.c
+        ArrayList.c
+        ArrayList.h
 )
 
 add_executable(Search_algorithm_exec main.c
@@ -25,6 +27,8 @@ add_executable(Search_algorithm_exec main.c
         AVL_TREE.h
         Queue.h
         Queue.c
+        ArrayList.c
+        ArrayList.h
 )
 
 target_link_libraries(Search_algorithm_exec Search_algorithm)
