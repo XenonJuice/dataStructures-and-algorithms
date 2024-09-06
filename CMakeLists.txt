@@ -29,6 +29,8 @@ add_executable(Search_algorithm_exec main.c
         Queue.c
         ArrayList.c
         ArrayList.h
+        Heap.c
+        Heap.h
 )
 
 target_link_libraries(Search_algorithm_exec Search_algorithm)
