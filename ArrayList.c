@@ -148,7 +148,7 @@ int checkRange(ArrayList *list, int index) {
 
 // 扩容
 ArrayList *expandArrayList(ArrayList *list) {
-    int newCapacity = 1 << (list->capacity);
+    int newCapacity = (list->capacity) << 1;
     int *newDataPtr = realloc(list->data, sizeof(int) * newCapacity);
     if (newDataPtr == NULL) {
         printf("扩容ArrayList：新Array内存分配失败\n");
@@ -156,6 +156,7 @@ ArrayList *expandArrayList(ArrayList *list) {
     }
     list->data = newDataPtr;
     list->capacity = newCapacity;
+    printf("扩容ArrayList：扩容结束，扩展后的容量为 %d\n", list->capacity);
     return list;
 }
 
@@ -171,5 +172,6 @@ ArrayList *shrinkArrayList(ArrayList *list) {
         list->data = newDataPtr;
         list->capacity = newCapacity;
     }
+    printf("收缩ArrayList：收缩结束，收缩后的容量为 %d\n", list->capacity);
     return list;
 }
