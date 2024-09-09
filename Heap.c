@@ -4,6 +4,7 @@
 
 #include "Heap.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 /*only used in this file*/
@@ -19,9 +20,11 @@ void swapNode(Heap *heap, int one, int two);
 // 创建堆
 Heap *heap_create(int capacity) {
     Heap *heap = malloc(sizeof(Heap));
-    heap->array->data = (int *) malloc(sizeof(int) * capacity);
-    heap->array->capacity = capacity;
-    heap->array->index = 0;
+    if (heap == NULL) {
+        printf("堆创建: 堆内存分配失败\n");
+        return NULL;
+    }
+    heap->array = initArrayList(capacity);
     return heap;
 }
 
@@ -34,36 +37,52 @@ Heap *heap_init(Heap *heap) {
     return heap;
 }
 
-// 销毁堆
+// 堆销毁
 void heap_destroy(Heap *heap) {
-    free(heap->array->data);
+    if (heap == NULL) {
+        printf("堆销毁: 堆为空\n");
+        return;
+    }
+    // 销毁内部的 ArrayList 数据
+    if (heap->array != NULL) {
+        if (heap->array->data != NULL) {
+            free(heap->array->data);
+            printf("堆销毁: arrayList销毁\n");
+        }
+        free(heap->array);
+        printf("堆销毁: arrayList指针销毁\n");
+    }
+
+    // 销毁堆结构体
     free(heap);
 }
 
+
 // 堆插入
 void heap_insert(Heap *heap, int data) {
-    heap->array->data[heap->array->index] = data;
-    heap->array->index++;
+    add(heap->array, data);
+    printf("堆插入:插入节点: 值为%d\n", data);
+    printf("堆插入:插入节点: 下标为%d\n", heap->array->index - 1);
     /*插入节点时，需要从末尾节点开始向上堆化*/
-    sift_up(heap, heap->array->index);
+    sift_up(heap, heap->array->index - 1);
 }
 
 // 堆删除
 int heap_delete(Heap *heap) {
     int data = heap->array->data[0];
-    heap->array->data[0] = heap->array->data[heap->array->index];
-    heap->array->index--;
-    /*删除头部节点时，末尾节点的值赋予了头部节点的位置，所以需要从头部开始向下堆化*/
+    set(heap->array, 0, heap->array->data[heap->array->index - 1]);
+    printf("堆删除:删除节点: 值为%d\n", data);
+    /*删除头部节点时，交换头节点和尾节点的位置，所以需要从头部开始向下堆化*/
     sift_down(heap, 0);
     return data;
 }
 
 // 向上堆化
 void sift_up(Heap *heap, int index) {
-    while (1) {
+    while (index > 0) {
         int parentIndex = getParentIndex(index);
         // 如果父节点越界，或者当前节点比父节点小，则停止堆化
-        if (parentIndex < 0 || heap->array->data[index] < heap->array->data[parentIndex]) {
+        if (heap->array->data[index] > heap->array->data[parentIndex]) {
             break;
         }
         swapNode(heap, index, parentIndex);
@@ -77,7 +96,7 @@ void sift_down(Heap *heap, int index) {
         int leftChildIndex = getLeftChildIndex(index);
         int rightChildIndex = getRightChildIndex(index);
         int min = index;
-        // 如果左子节点不越界，或者左子节点比当前节点小，则将左子节点作为最小节点
+        // 如果左子节点不越界，并且左子节点比当前节点小，则将左子节点作为最小节点
         if (leftChildIndex <= heap->array->index
             && heap->array->data[index] > heap->array->data[leftChildIndex]) {
             min = leftChildIndex;
@@ -94,6 +113,13 @@ void sift_down(Heap *heap, int index) {
         swapNode(heap, index, min);
         index = min;
     }
+}
+
+//打印堆
+void heap_print(Heap *heap) {
+    ArrayList *array = heap->array;
+    printf("打印堆: \n");
+    printArrayList(array);
 }
 
 int getParentIndex(int index) {
