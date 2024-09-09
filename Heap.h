@@ -30,4 +30,8 @@ void sift_up(Heap *heap, int index);
 
 // 向下堆化
 void sift_down(Heap *heap, int index);
+
+//打印堆
+void heap_print(Heap *heap);
+
 #endif //HEAP_H
