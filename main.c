@@ -4,12 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "AVL_TREE.h"
-#include "Queue.h"
 #include "Heap.h"
-#include "STACK.h"
-#include "ArrayList.h"
-
+#define RANGE 1000
+#define TOPKSIZE 15
 
 int main() {
     system("chcp 65001");
@@ -30,24 +27,53 @@ int main() {
     // }
 
     //test the heap
-    Heap *heap = heap_create(10);
-    for (int i = 20; i > 0; i--) {
-        heap_insert(heap, i);
+    // Heap *heap = heap_create(10);
+    // for (int i = 20; i > 0; i--) {
+    //     heap_insert(heap, i);
+    // }
+    // heap_print(heap);
+    // heap_print(heap);
+    // heap_insert(heap, 0);
+    // heap_print(heap);
+    // heap_insert(heap, 0);
+    // heap_insert(heap, 99);
+    // heap_insert(heap, 50);
+    // heap_insert(heap, 100);
+    // heap_insert(heap, 21);
+    // heap_insert(heap, -5);
+    // heap_print(heap);
+    // heap_destroy(heap);
+
+    // getTOPK
+    // array for test [6 12 13 1 2 8 0 14 11 3 7 10 9 5 4]
+    Heap *heap = heap_create(TOPKSIZE);
+    ArrayList *listRangeOneThousand = initArrayList(RANGE);
+    for (int i = 0; i < RANGE; i++) {
+        add(listRangeOneThousand, i);
     }
+    shuffle(listRangeOneThousand->data, RANGE);
+    printf("GETTOPK 打印无序数组: \n");
+    printArrayList(listRangeOneThousand);
+    // 将无序数组的前topSize个元素放入堆中
+    for (int i = 0; i < TOPKSIZE; i++) {
+        heap_insert(heap, *(listRangeOneThousand->data + i));
+    }
+    heap_init(heap); // 初始化堆(从最后一个非叶子节点开始堆化，保证所有节点都已经堆化完成)
+    printf("打印初始化后的堆: \n");
     heap_print(heap);
-    heap_print(heap);
-
-    heap_insert(heap, 0);
-    heap_print(heap);
-    heap_insert(heap, 0);
-    heap_insert(heap, 99);
-    heap_insert(heap, 50);
-    heap_insert(heap, 100);
-    heap_insert(heap, 21);
-    heap_insert(heap, -5);
-    heap_print(heap);
+    // 遍历无序数组的后(RANGE-TOPKSIZE)个元素，如果大于堆顶元素，则将该元素替换为堆顶元素，然后堆化
+    for (int i = TOPKSIZE; i < RANGE; i++) {
+        int foo = *(listRangeOneThousand->data + i);
+        int heapTop = heap_peek(heap);
+        if (foo > heapTop) {
+            heap_delete(heap);
+            heap_insert(heap, foo);
+            // heap_init(heap);
+        }
+        heap_print(heap);
+    }
     heap_destroy(heap);
-
+    destroyArrayList(listRangeOneThousand);
 
     getchar();
     return 0;

@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 /*only used in this file*/
 ArrayList *expandArrayList(ArrayList *array);
@@ -43,7 +44,7 @@ void add(ArrayList *list, int value) {
     int index = list->index;
     *(dataPtr + index) = value;
     list->index++;
-    printf("添加元素：%d 到ArrayList中\n", value);
+    printf("添加元素：%d 到ArrayList中，下标为：%d \n", value, index);
 }
 
 // 删除ArrayList中指定位置的元素
@@ -82,7 +83,7 @@ void set(ArrayList *list, int index, int value) {
     }
     int *dataPtr = list->data;
     int tmpVal = *(dataPtr + index);
-    *(dataPtr + index) = value;
+    dataPtr[index] = value;
     printf("设置元素：%d 到ArrayList中，替换了原值:%d\n", value, tmpVal);
 }
 
@@ -106,10 +107,10 @@ int indexOf(ArrayList *list, int value) {
 
 // 清空整个ArrayList
 void clearArrayList(ArrayList *list) {
-    int index = list->index;
-    for (int i = 0; i < index; i++) {
-        list->data = NULL;
+    if (list->data != NULL) {
+        free(list->data);
     }
+    list->data = malloc(sizeof(int) * list->capacity);
     list->index = 0;
     printf("清空ArrayList：ArrayList已清空\n");
 }
@@ -163,7 +164,7 @@ ArrayList *expandArrayList(ArrayList *list) {
 // 收缩
 ArrayList *shrinkArrayList(ArrayList *list) {
     if (getLength(list) < list->capacity / 2) {
-        int newCapacity = (list->capacity) >> 2;
+        int newCapacity = (list->capacity) >> 1;
         int *newDataPtr = realloc(list->data, sizeof(int) * newCapacity);
         if (newDataPtr == NULL) {
             printf("收缩ArrayList：新Array内存分配失败\n");
@@ -174,4 +175,21 @@ ArrayList *shrinkArrayList(ArrayList *list) {
     }
     printf("收缩ArrayList：收缩结束，收缩后的容量为 %d\n", list->capacity);
     return list;
+}
+
+
+// Fisher-Yates
+void shuffle(int *arr, int n) {
+    if (arr == NULL) {
+        printf("洗牌：数组为空\n");
+        return;
+    }
+    srand(time(NULL));
+    for (int i = n - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        int tmp = *(arr + i);
+        *(arr + i) = *(arr + j);
+        *(arr + j) = tmp;
+    }
+    printf("洗牌：已打乱\n");
 }
