@@ -47,4 +47,8 @@ int getCapacity(ArrayList *list);
 
 // 检查ArrayList的索引是否合法
 int checkRange(ArrayList *list, int index);
+
+
+// Fisher-Yates
+void shuffle(int *arr, int n);
 #endif //ARRAYLIST_H

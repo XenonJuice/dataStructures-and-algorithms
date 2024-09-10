@@ -62,7 +62,7 @@ void heap_destroy(Heap *heap) {
 void heap_insert(Heap *heap, int data) {
     add(heap->array, data);
     printf("堆插入:插入节点: 值为%d\n", data);
-    printf("堆插入:插入节点: 下标为%d\n", heap->array->index - 1);
+    // printf("堆插入:插入节点: 下标为%d\n", heap->array->index - 1);
     /*插入节点时，需要从末尾节点开始向上堆化*/
     sift_up(heap, heap->array->index - 1);
 }
@@ -71,6 +71,7 @@ void heap_insert(Heap *heap, int data) {
 int heap_delete(Heap *heap) {
     int data = heap->array->data[0];
     set(heap->array, 0, heap->array->data[heap->array->index - 1]);
+    heap->array->index--;
     printf("堆删除:删除节点: 值为%d\n", data);
     /*删除头部节点时，交换头节点和尾节点的位置，所以需要从头部开始向下堆化*/
     sift_down(heap, 0);
@@ -97,13 +98,18 @@ void sift_down(Heap *heap, int index) {
         int rightChildIndex = getRightChildIndex(index);
         int min = index;
         // 如果左子节点不越界，并且左子节点比当前节点小，则将左子节点作为最小节点
-        if (leftChildIndex <= heap->array->index
-            && heap->array->data[index] > heap->array->data[leftChildIndex]) {
+        if (leftChildIndex < heap->array->index
+            && heap->array->data[min] > heap->array->data[leftChildIndex]) {
             min = leftChildIndex;
         }
+        /*
+         * 注意这里的 heap->array->data[min] ，位置必须为min而不是index，因为左子节点与当前节点比较之后，最小节点的基准
+         * 可能发生了变化，如果继续使用index会导致错误的比较，因为当前节点已经不是最小节点了，反而回到了当前节点的位置
+         * 这个问题于2024年9月10日困扰了我一整个下午，进行三者比较时一定要注意基准量的变化
+         */
         // 如果右子节点不越界，并且右子节点比当前节点小，则将右子节点作为最小节点
-        if (rightChildIndex <= heap->array->index
-            && heap->array->data[index] > heap->array->data[rightChildIndex]) {
+        if (rightChildIndex < heap->array->index
+            && heap->array->data[min] > heap->array->data[rightChildIndex]) {
             min = rightChildIndex;
         }
         // 如果最小节点就是当前节点，则停止堆化
@@ -113,6 +119,11 @@ void sift_down(Heap *heap, int index) {
         swapNode(heap, index, min);
         index = min;
     }
+}
+
+// 获取堆顶元素
+int heap_peek(Heap *heap) {
+    return heap->array->data[0];
 }
 
 //打印堆

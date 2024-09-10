@@ -31,6 +31,9 @@ void sift_up(Heap *heap, int index);
 // 向下堆化
 void sift_down(Heap *heap, int index);
 
+// 获取堆顶元素
+int heap_peek(Heap *heap);
+
 //打印堆
 void heap_print(Heap *heap);
 
