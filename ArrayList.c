@@ -193,3 +193,61 @@ void shuffle(int *arr, int n) {
     }
     printf("洗牌：已打乱\n");
 }
+
+// 二分查找
+int binarySearch(ArrayList *list, int target) {
+    int left = 0;
+    int right = list->index - 1;
+    int *arr = list->data;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] < target) {
+            left = mid + 1;
+        } else if (arr[mid] > target) {
+            right = mid - 1;
+        } else {
+            return mid;
+        }
+    }
+    return -1;
+}
+
+// 冒泡排序
+void bubbleSort(ArrayList *list) {
+    int *arr = list->data;
+    int n = list->index;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int tmp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = tmp;
+            }
+        }
+    }
+    printf("冒泡排序：已排序\n");
+    printArrayList(list);
+}
+
+// 选择排序
+void selectionSort(ArrayList *list);
+
+// 插入排序
+void insertionSort(ArrayList *list) {
+    int *arr = list->data;
+    int n = list->index;
+    for (int i = 1; i < n; i++) {
+        int j= i-1;
+        int tmp =arr[i];
+        while (j >= 0 && arr[j] > tmp) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+    }
+}
+
+// 归并排序
+void mergeSort(ArrayList *list);
+
+// 快速排序
+void quickSort(ArrayList *list);

@@ -48,7 +48,25 @@ int getCapacity(ArrayList *list);
 // 检查ArrayList的索引是否合法
 int checkRange(ArrayList *list, int index);
 
-
 // Fisher-Yates
 void shuffle(int *arr, int n);
+
+// 二分查找
+int binarySearch(ArrayList *list, int target);
+
+// 冒泡排序
+void bubbleSort(ArrayList *list);
+
+// 选择排序
+void selectionSort(ArrayList *list);
+
+// 插入排序
+void insertionSort(ArrayList *list);
+
+// 归并排序
+void mergeSort(ArrayList *list);
+
+// 快速排序
+void quickSort(ArrayList *list);
+
 #endif //ARRAYLIST_H
