@@ -81,22 +81,60 @@ int main() {
     }
     printf("二分查找测试: \n");
     for (int i = 0; i < 10; i++) {
-        int binarySearchResult = binarySearch(binarySearchArrayList, i);
+        int const binarySearchResult = binarySearch(binarySearchArrayList, i);
         printf("二分查找结果: %d\n", binarySearchResult);
     }
-
     destroyArrayList(binarySearchArrayList);
-    //getchar();
 
     // 冒泡排序测试
-    int inttie[] = {7, 5, 6, 4, 2, 1, 3, 9, 8, 0};
+    int const inttie[] = {7, 5, 6, 4, 2, 1, 3, 9, 8, 0};
     ArrayList *bubbleSortArrayList = initArrayList(10);
     for (int i = 0; i < 10; i++) {
         add(bubbleSortArrayList, inttie[i]);
     }
     printf("冒泡排序测试: \n");
     bubbleSort(bubbleSortArrayList);
-    destroyArrayList(binarySearchArrayList);
+    destroyArrayList(bubbleSortArrayList);
+
+    // 选择排序测试
+    ArrayList *selectionSortArrayList = initArrayList(10);
+    for (int i = 0; i < 10; i++) {
+        add(selectionSortArrayList, inttie[i]);
+    }
+    printf("选择排序测试: \n");
+    selectionSort(selectionSortArrayList);
+    destroyArrayList(selectionSortArrayList);
+
+    // 插入排序测试
+    ArrayList *insertionSortArrayList = initArrayList(10);
+    for (int i = 0; i < 10; i++) {
+        add(insertionSortArrayList, inttie[i]);
+    }
+    printf("插入排序测试: \n");
+    insertionSort(insertionSortArrayList);
+    destroyArrayList(insertionSortArrayList);
+
+    // 冒泡排序测试
+    ArrayList *bubbleSortArrayListNo = initArrayList(10);
+    for (int i = 0; i < 10; i++) {
+        add(bubbleSortArrayListNo, i);
+    }
+    printf("冒泡排序测试: \n");
+    bubbleSort(bubbleSortArrayListNo);
+    destroyArrayList(bubbleSortArrayListNo);
+
+    // 快速排序测试
+    ArrayList *quickSortArrayList = initArrayList(10);
+    for (int i = 0; i < 10; i++) {
+        add(quickSortArrayList, inttie[i]);
+    }
+    printf("快速排序测试: \n");
+    quickSort(quickSortArrayList, 0, quickSortArrayList->index - 1);
+    printArrayList(quickSortArrayList);
+    destroyArrayList(quickSortArrayList);
+
+
+    //getchar();
     return 0;
 }
 
