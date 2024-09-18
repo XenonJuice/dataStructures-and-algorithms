@@ -44,7 +44,7 @@ void add(ArrayList *list, int value) {
     int index = list->index;
     *(dataPtr + index) = value;
     list->index++;
-    printf("添加元素：%d 到ArrayList中，下标为：%d \n", value, index);
+    // printf("添加元素：%d 到ArrayList中，下标为：%d \n", value, index);
 }
 
 // 删除ArrayList中指定位置的元素
@@ -216,13 +216,20 @@ int binarySearch(ArrayList *list, int target) {
 void bubbleSort(ArrayList *list) {
     int *arr = list->data;
     int n = list->index;
+    int flag;
     for (int i = 0; i < n - 1; i++) {
+        flag = 0;
         for (int j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
                 int tmp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = tmp;
+                flag = 1;
             }
+        }
+        if (!flag) {
+            printf("冒泡排序：数组已有序，无需继续\n");
+            break;
         }
     }
     printf("冒泡排序：已排序\n");
@@ -230,7 +237,25 @@ void bubbleSort(ArrayList *list) {
 }
 
 // 选择排序
-void selectionSort(ArrayList *list);
+void selectionSort(ArrayList *list) {
+    int *arr = list->data;
+    int n = list->index;
+    for (int i = 0; i < n - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (*(arr + minIndex) > *(arr + j)) {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            int tmp = *(arr + i);
+            arr[i] = arr[minIndex];
+            arr[minIndex] = tmp;
+        }
+    }
+    printf("选择排序：已排序\n");
+    printArrayList(list);
+}
 
 // 插入排序
 void insertionSort(ArrayList *list) {
@@ -245,10 +270,47 @@ void insertionSort(ArrayList *list) {
         }
         arr[j + 1] = tmp;
     }
+    printf("插入排序：已排序\n");
+    printArrayList(list);
 }
 
 // 归并排序
 void mergeSort(ArrayList *list);
 
 // 快速排序
-void quickSort(ArrayList *list);
+void quickSort(ArrayList *list, int left, int right) {
+    int *arr = list->data;
+    while (left < right) {
+        int swapFlag = 0;
+        int i = left, j = right;
+        int pivotIndex = left + rand() % (right - left + 1);
+        int pivot = arr[pivotIndex];
+        arr[pivotIndex] = arr[right];
+        arr[right] = pivot;
+        // 分区操作
+        while (i < j) {
+            while (i < j && arr[i] <= pivot) i++;
+            if (i < j) {
+                arr[j--] = arr[i];
+                swapFlag = 1;
+            }
+            while (i < j && arr[j] >= pivot) j--;
+            if (i < j) {
+                arr[i++] = arr[j];
+                swapFlag = 1;
+            }
+        }
+        arr[i] = pivot;
+        if (!swapFlag) {
+            break;
+        }
+        // 尾递归优化：优先递归处理较短的子数组
+        if (i - left < right - i) {
+            quickSort(list, left, i - 1);
+            left = i + 1;
+        } else {
+            quickSort(list, i + 1, right);
+            right = i - 1;
+        }
+    }
+}

@@ -67,6 +67,6 @@ void insertionSort(ArrayList *list);
 void mergeSort(ArrayList *list);
 
 // 快速排序
-void quickSort(ArrayList *list);
+void quickSort(ArrayList *list, int left, int right);
 
 #endif //ARRAYLIST_H
