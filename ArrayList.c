@@ -281,7 +281,10 @@ void mergeSort(ArrayList *list);
 void quickSort(ArrayList *list, int left, int right) {
     int *arr = list->data;
     while (left < right) {
-        int swapFlag = 0;
+        /*快速排序的结束循环的标准应该是前后指针相遇，
+         *而简单通过swapFlag判断是否发生交换会导致一侧子数组有序，
+         *但是另一侧子数组无序的状态下，无序子数组未能排序便提前结束的问题*/
+        // int swapFlag = 0;
         int i = left, j = right;
         int pivotIndex = left + rand() % (right - left + 1);
         int pivot = arr[pivotIndex];
@@ -292,18 +295,18 @@ void quickSort(ArrayList *list, int left, int right) {
             while (i < j && arr[i] <= pivot) i++;
             if (i < j) {
                 arr[j--] = arr[i];
-                swapFlag = 1;
+                //swapFlag = 1;
             }
             while (i < j && arr[j] >= pivot) j--;
             if (i < j) {
                 arr[i++] = arr[j];
-                swapFlag = 1;
+                // swapFlag = 1;
             }
         }
         arr[i] = pivot;
-        if (!swapFlag) {
-            break;
-        }
+        // if (!swapFlag) {
+        //     break;
+        // }
         // 尾递归优化：优先递归处理较短的子数组
         if (i - left < right - i) {
             quickSort(list, left, i - 1);
