@@ -3,10 +3,12 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "Heap.h"
 #define RANGE 20
 #define TOPKSIZE 4
+#define ARRAY_SIZE 20000
 
 int main() {
     system("chcp 65001");
@@ -132,6 +134,20 @@ int main() {
     quickSort(quickSortArrayList, 0, quickSortArrayList->index - 1);
     printArrayList(quickSortArrayList);
     destroyArrayList(quickSortArrayList);
+
+    int arr20000[ARRAY_SIZE];
+    srand(time(NULL));
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        arr20000[i] = rand();
+    }
+    ArrayList *quickSortArrayList20000 = initArrayList(ARRAY_SIZE);
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        add(quickSortArrayList20000, arr20000[i]);
+    }
+    printf("快速排序测试(2,00,00): \n");
+    quickSort(quickSortArrayList20000, 0, quickSortArrayList20000->index - 1);
+    printArrayList(quickSortArrayList20000);
+    destroyArrayList(quickSortArrayList20000);
 
 
     //getchar();
