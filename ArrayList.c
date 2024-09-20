@@ -281,9 +281,9 @@ void mergeSort(ArrayList *list) {
     int *arr = list->data;
     int n = list->index;
     for (int stepSize = 1; stepSize < n; stepSize <<= 1) {
-        for (int left = 0; left < n - 1; left += (stepSize << 1)) {
+        for (int left = 0; left < n - 1; left += stepSize << 1) {
             int mid = left + stepSize - 1;
-            int right = ((left + (stepSize << 1) - 1) < (n - 1)) ? (left + (stepSize << 1) - 1) : (n - 1);
+            int right = left + (stepSize << 1) - 1 < n - 1 ? left + (stepSize << 1) - 1 : n - 1;
             if (mid < right) merge(arr, left, mid, right);
         }
     }
