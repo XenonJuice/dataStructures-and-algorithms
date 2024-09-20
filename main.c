@@ -6,6 +6,7 @@
 #include <time.h>
 
 #include "Heap.h"
+#include "LinkedList.h"
 #define RANGE 20
 #define TOPKSIZE 4
 #define ARRAY_SIZE 2
@@ -162,6 +163,35 @@ int main() {
     mergeSort(mergeSortArrayList);
     destroyArrayList(mergeSortArrayList);
 
+    // 链表测试
+    LinkedListNode *head = createLinkedList(0);
+    for (int i = 1; i < 10; i++) {
+        insertLinkedList(head, i);
+    }
+    for (int i = 1; i < 10; i++) {
+        insertLinkedList(head, 5);
+    }
+    for (int i = 1; i < 10; i++) {
+        insertLinkedList(head, 6);
+    }
+
+    printf("链表测试 insert: \n");
+    printLinkedList(head);
+    printf("链表测试 delete: \n");
+    // deleteLinkedList(head, 3);
+    deleteLinkedList(head, 5);
+    printLinkedList(head);
+    printf("链表测试 search: \n");
+    ArrayList *searchResult = searchLinkedList(head, 5);
+    printf("链表测试 search 标识符集合为: \n");
+    if (searchResult == NULL) {
+        printf("链表测试 search 未找到\n");
+    } else {
+        printArrayList(searchResult);
+        destroyArrayList(searchResult);
+    }
+
+    freeLinkedList(head);
 
     //getchar();
     return 0;
