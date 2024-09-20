@@ -16,6 +16,8 @@ add_library(Search_algorithm STATIC
         Queue.c
         ArrayList.c
         ArrayList.h
+        LinkedList.c
+        LinkedList.h
 )
 
 add_executable(Search_algorithm_exec main.c
@@ -31,6 +33,8 @@ add_executable(Search_algorithm_exec main.c
         ArrayList.h
         Heap.c
         Heap.h
+        LinkedList.c
+        LinkedList.h
 )
 
 target_link_libraries(Search_algorithm_exec Search_algorithm)
