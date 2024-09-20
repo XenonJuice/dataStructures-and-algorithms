@@ -95,6 +95,10 @@ ArrayList *searchLinkedList(LinkedListNode *head, int val) {
       current = current->next;
    }
    printf("查找节点结束\n");
+   if (targetLinkedListNode->index == 0) {
+      printf("查找节点结束：未找到节点\n");
+      return NULL;
+   }
    return targetLinkedListNode;
 }
 
@@ -103,7 +107,7 @@ void printLinkedList(LinkedListNode *head) {
    printf("打印链表：\n");
    LinkedListNode *current = head;
    while (current != NULL) {
-      printf("值：%d ，标识符：%d", current->val, current->specificID);
+      printf("值：%d ，标识符：%d\n", current->val, current->specificID);
       current = current->next;
    }
    printf("\n");
