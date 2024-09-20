@@ -8,7 +8,7 @@
 #include "Heap.h"
 #define RANGE 20
 #define TOPKSIZE 4
-#define ARRAY_SIZE 20000
+#define ARRAY_SIZE 2
 
 int main() {
     system("chcp 65001");
@@ -135,19 +135,32 @@ int main() {
     printArrayList(quickSortArrayList);
     destroyArrayList(quickSortArrayList);
 
-    int arr20000[ARRAY_SIZE];
-    srand(time(NULL));
-    for (int i = 0; i < ARRAY_SIZE; i++) {
-        arr20000[i] = rand();
+    // int arr20000[ARRAY_SIZE];
+    // srand(time(NULL));
+    // for (int i = 0; i < ARRAY_SIZE; i++) {
+    //     arr20000[i] = rand();
+    // }
+    // ArrayList *quickSortArrayList20000 = initArrayList(ARRAY_SIZE);
+    // for (int i = 0; i < ARRAY_SIZE; i++) {
+    //     add(quickSortArrayList20000, arr20000[i]);
+    // }
+    // printf("快速排序测试(2,00,00): \n");
+    // quickSort(quickSortArrayList20000, 0, quickSortArrayList20000->index - 1);
+    // printArrayList(quickSortArrayList20000);
+    // destroyArrayList(quickSortArrayList20000);
+
+    // 归并排序测试
+    ArrayList *mergeSortArrayList = initArrayList(ARRAY_SIZE);
+    // for (int i = 0; i < ARRAY_SIZE; i++) {
+    //     add(mergeSortArrayList, arr20000[i]);
+    // }
+    int smallArr[] = {2, 1};
+    for (int i = 0; i < 2; i++) {
+        add(mergeSortArrayList, smallArr[i]);
     }
-    ArrayList *quickSortArrayList20000 = initArrayList(ARRAY_SIZE);
-    for (int i = 0; i < ARRAY_SIZE; i++) {
-        add(quickSortArrayList20000, arr20000[i]);
-    }
-    printf("快速排序测试(2,00,00): \n");
-    quickSort(quickSortArrayList20000, 0, quickSortArrayList20000->index - 1);
-    printArrayList(quickSortArrayList20000);
-    destroyArrayList(quickSortArrayList20000);
+    printf("归并排序测试: \n");
+    mergeSort(mergeSortArrayList);
+    destroyArrayList(mergeSortArrayList);
 
 
     //getchar();
