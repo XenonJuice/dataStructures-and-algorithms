@@ -13,6 +13,8 @@ ArrayList *expandArrayList(ArrayList *array);
 
 ArrayList *shrinkArrayList(ArrayList *list);
 
+void merge(int *arr, int left, int mid, int right);
+
 // 初始化一个ArrayList，返回一个ArrayList指针
 ArrayList *initArrayList(int capacity) {
     ArrayList *list = malloc(sizeof(ArrayList));
@@ -275,7 +277,40 @@ void insertionSort(ArrayList *list) {
 }
 
 // 归并排序
-void mergeSort(ArrayList *list);
+void mergeSort(ArrayList *list) {
+    int *arr = list->data;
+    int n = list->index;
+    for (int stepSize = 1; stepSize < n; stepSize <<= 1) {
+        for (int left = 0; left < n - 1; left += (stepSize << 1)) {
+            int mid = left + stepSize - 1;
+            int right = ((left + (stepSize << 1) - 1) < (n - 1)) ? (left + (stepSize << 1) - 1) : (n - 1);
+            if (mid < right) merge(arr, left, mid, right);
+        }
+    }
+    printf("归并排序：已排序\n");
+    printArrayList(list);
+}
+
+// 合并
+void merge(int *arr, int left, int mid, int right) {
+    int *tmp = malloc(sizeof(int) * (right - left + 1));
+    /*
+     * i for leftArr pointer
+     * j for rightArr pointer
+     * k for tmpArr pointer
+     */
+    int i = left, j = mid + 1, k = 0;
+    while (i <= mid && j <= right) {
+        if (arr[i] <= arr[j]) tmp[k++] = arr[i++];
+        else tmp[k++] = arr[j++];
+    }
+    // handle attr not merged in left and right arr
+    while (i <= mid) tmp[k++] = arr[i++];
+    while (j <= right) tmp[k++] = arr[j++];
+    // copy tmpArr back to arr
+    for (i = left, k = 0; i <= right; i++, k++) arr[i] = tmp[k];
+    free(tmp);
+}
 
 // 快速排序
 void quickSort(ArrayList *list, int left, int right) {
