@@ -6,8 +6,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "ArrayList.h"
 int globalID = 0;
 
 // 创建链表
@@ -80,26 +78,21 @@ LinkedListNode *deleteLinkedList(LinkedListNode *head, int val) {
    return head;
 }
 
-// 查找节点
-ArrayList *searchLinkedList(LinkedListNode *head, int val) {
+int searchLinkedList(LinkedListNode *head, int val) {
    if (head == NULL) {
       printf("查找节点：链表为空\n");
-      return NULL;
+      return -1;
    }
-   ArrayList *targetLinkedListNode = initArrayList(10);
    LinkedListNode *current = head;
    while (current != NULL) {
       if (current->val == val) {
-         add(targetLinkedListNode, current->specificID);
+         printf("查找节点结束\n");
+         return current->specificID;
       }
       current = current->next;
    }
-   printf("查找节点结束\n");
-   if (targetLinkedListNode->index == 0) {
-      printf("查找节点结束：未找到节点\n");
-      return NULL;
-   }
-   return targetLinkedListNode;
+   printf("查找节点结束：未找到节点\n");
+   return -1;
 }
 
 // 打印链表

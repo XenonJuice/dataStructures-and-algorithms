@@ -25,7 +25,7 @@ LinkedListNode *insertLinkedList(LinkedListNode *head, int val);
 LinkedListNode *deleteLinkedList(LinkedListNode *head, int val);
 
 // 查找节点
-ArrayList *searchLinkedList(LinkedListNode *head, int val);
+int searchLinkedList(LinkedListNode *head, int val);
 
 // 打印链表
 void printLinkedList(LinkedListNode *head);
