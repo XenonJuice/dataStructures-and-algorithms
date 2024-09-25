@@ -7,7 +7,7 @@
 #include "AVL_TREE.h"
 
 typedef struct Stack Stack;
-typedef struct AVL_TreeNode AVL_TreeNode;
+typedef AVL_TreeNode AVL_TreeNode;
 
 
 typedef struct Stack {
