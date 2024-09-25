@@ -9,11 +9,11 @@
 #include <time.h>
 
 /*only used in this file*/
-ArrayList *expandArrayList(ArrayList *array);
+static ArrayList *expandArrayList(ArrayList *array);
 
-ArrayList *shrinkArrayList(ArrayList *list);
+static ArrayList *shrinkArrayList(ArrayList *list);
 
-void merge(int *arr, int left, int mid, int right);
+static void merge(int *arr, int left, int mid, int right);
 
 // 初始化一个ArrayList，返回一个ArrayList指针
 ArrayList *initArrayList(int capacity) {
@@ -150,7 +150,7 @@ int checkRange(ArrayList *list, int index) {
 }
 
 // 扩容
-ArrayList *expandArrayList(ArrayList *list) {
+static ArrayList *expandArrayList(ArrayList *list) {
     int newCapacity = (list->capacity) << 1;
     int *newDataPtr = realloc(list->data, sizeof(int) * newCapacity);
     if (newDataPtr == NULL) {
@@ -164,7 +164,7 @@ ArrayList *expandArrayList(ArrayList *list) {
 }
 
 // 收缩
-ArrayList *shrinkArrayList(ArrayList *list) {
+static ArrayList *shrinkArrayList(ArrayList *list) {
     if (getLength(list) < list->capacity / 2) {
         int newCapacity = (list->capacity) >> 1;
         int *newDataPtr = realloc(list->data, sizeof(int) * newCapacity);

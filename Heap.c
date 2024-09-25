@@ -8,13 +8,13 @@
 #include <stdlib.h>
 
 /*only used in this file*/
-int getParentIndex(int index);
+static int getParentIndex(int index);
 
-int getLeftChildIndex(int index);
+static int getLeftChildIndex(int index);
 
-int getRightChildIndex(int index);
+static int getRightChildIndex(int index);
 
-void swapNode(Heap *heap, int one, int two);
+static void swapNode(Heap *heap, int one, int two);
 
 
 // 创建堆
@@ -133,19 +133,19 @@ void heap_print(Heap *heap) {
     printArrayList(array);
 }
 
-int getParentIndex(int index) {
+static int getParentIndex(int index) {
     return (index - 1) / 2;
 }
 
-int getLeftChildIndex(int index) {
+static int getLeftChildIndex(int index) {
     return index * 2 + 1;
 }
 
-int getRightChildIndex(int index) {
+static int getRightChildIndex(int index) {
     return index * 2 + 2;
 }
 
-void swapNode(Heap *heap, int one, int two) {
+static void swapNode(Heap *heap, int one, int two) {
     ArrayList *array = heap->array;
     int tmp = array->data[one];
     array->data[one] = array->data[two];

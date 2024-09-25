@@ -6,7 +6,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-int globalID = 0;
+/*only used in this file*/
+static int globalID = 0;
+
+// 分割链表，并返回分割后的右侧链表头节点
+static LinkedListNode *splitLinkedList(LinkedListNode *head, int size);
+
+// 合并链表
+static LinkedListNode *mergeLinkedList(LinkedListNode *left, LinkedListNode *right);
 
 // 创建链表
 LinkedListNode *createLinkedList(int val) {
@@ -107,7 +114,7 @@ void printLinkedList(LinkedListNode *head) {
 }
 
 // 获取链表长度
-void getLinkedListLength(LinkedListNode *head) {
+int getLinkedListLength(LinkedListNode *head) {
    int length = 0;
    LinkedListNode *current = head;
    while (current != NULL) {
@@ -115,6 +122,72 @@ void getLinkedListLength(LinkedListNode *head) {
       current = current->next;
    }
    printf("链表长度：%d\n", length);
+   return length;
+}
+
+// 归并排序（迭代）
+LinkedListNode *mergeSortLinkedList(LinkedListNode *head) {
+   if (head == NULL) {
+      printf("链表归并排序：链表为空\n");
+      return NULL;
+   }
+   int length = getLinkedListLength(head);
+   LinkedListNode *dummy = malloc(sizeof(LinkedListNode));
+   dummy->next = head;
+   for (int i = 1; i < length; i <<= 1) {
+      LinkedListNode *current = dummy->next;
+      LinkedListNode *tail = dummy;
+      while (current) {
+         LinkedListNode *left = current;
+         LinkedListNode *right = splitLinkedList(left, i);
+         current = splitLinkedList(right, i);
+         tail->next = mergeLinkedList(left, right);
+         while (tail->next) tail = tail->next;
+      }
+   }
+   LinkedListNode *tmp = dummy->next;
+   free(dummy);
+   return tmp;
+}
+
+// 分割链表，并返回分割后的右侧链表头节点
+static LinkedListNode *splitLinkedList(LinkedListNode *head, int size) {
+   if (head == NULL) {
+      printf("分割链表：链表为空,步长为:%d\n", size);
+      return NULL;
+   }
+   LinkedListNode *current = head;
+   LinkedListNode *prev = NULL;
+   for (int i = 0; i < size && current; i++) {
+      prev = current;
+      current = current->next;
+   }
+   if (prev != NULL) prev->next = NULL;
+   return current;
+}
+
+// 合并链表
+static LinkedListNode *mergeLinkedList(LinkedListNode *left, LinkedListNode *right) {
+   LinkedListNode *dummy = malloc(sizeof(LinkedListNode));
+   LinkedListNode *tail = dummy;
+   while (left && right) {
+      if (left->val < right->val) {
+         tail->next = left;
+         left = left->next;
+         tail = tail->next;
+         tail->next = NULL;
+      } else {
+         tail->next = right;
+         right = right->next;
+         tail = tail->next;
+         tail->next = NULL;
+      }
+   }
+   if (left) tail->next = left;
+   if (right) tail->next = right;
+   LinkedListNode *tmp = dummy->next;
+   free(dummy);
+   return tmp;
 }
 
 // 释放链表

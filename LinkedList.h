@@ -4,7 +4,6 @@
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
-#include "ArrayList.h"
 
 typedef struct LinkedListNode linkedListNode;
 
@@ -31,7 +30,10 @@ int searchLinkedList(LinkedListNode *head, int val);
 void printLinkedList(LinkedListNode *head);
 
 // 获取链表长度
-void getLinkedListLength(LinkedListNode *head);
+int getLinkedListLength(LinkedListNode *head);
+
+// 归并排序（迭代）
+LinkedListNode *mergeSortLinkedList(LinkedListNode *head);
 
 // 释放链表
 void freeLinkedList(LinkedListNode *head);
