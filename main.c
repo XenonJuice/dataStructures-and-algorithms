@@ -10,6 +10,8 @@
 #define RANGE 20
 #define TOPKSIZE 4
 #define ARRAY_SIZE 2
+#define TOTAL_NUMBERS 1000
+#define RANDOM_COUNT 100
 
 int main() {
     system("chcp 65001");
@@ -182,17 +184,28 @@ int main() {
     deleteLinkedList(head, 5);
     printLinkedList(head);
     printf("链表测试 search: \n");
-    ArrayList *searchResult = searchLinkedList(head, 5);
-    printf("链表测试 search 标识符集合为: \n");
-    if (searchResult == NULL) {
-        printf("链表测试 search 未找到\n");
-    } else {
-        printArrayList(searchResult);
-        destroyArrayList(searchResult);
-    }
-
+    int searchResult = searchLinkedList(head, 5);
+    printf("链表测试 search 标识符为: \n");
+    printf("%d\n", searchResult);
     freeLinkedList(head);
 
+    // 链表测试 归并排序(迭代)
+    LinkedListNode *head2 = createLinkedList(0);
+    int numbers[TOTAL_NUMBERS];
+    int randomNumbers[RANDOM_COUNT];
+    srand(time(NULL));
+    for (int i = 0; i < TOTAL_NUMBERS; i++) {
+        numbers[i] = i + 1;
+    }
+    shuffle(numbers,TOTAL_NUMBERS);
+    for (int i = 0; i < RANDOM_COUNT; i++) {
+        randomNumbers[i] = numbers[i];
+        insertLinkedList(head2, randomNumbers[i]);
+    }
+    printf("链表测试 归并排序(迭代): \n");
+    LinkedListNode *sortedHead = mergeSortLinkedList(head2);
+    printLinkedList(sortedHead);
+    freeLinkedList(sortedHead);
     //getchar();
     return 0;
 }
