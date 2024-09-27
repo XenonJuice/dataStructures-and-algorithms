@@ -47,6 +47,13 @@ AVL_TreeNode *rotate(AVL_TreeNode *node);
 // bfs 打印二叉树
 void bfs(AVL_TreeNode *root);
 
+// 深度优先遍历
+void preOrder(AVL_TreeNode *root);
+
+void inOrder(AVL_TreeNode *root);
+
+void postOrder(AVL_TreeNode *root);
+
 // 销毁二叉树
 void destroyAVLTree(AVL_TreeNode *root);
 
