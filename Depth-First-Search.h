@@ -10,5 +10,5 @@ void preOrderTraversal(AVL_TreeNode *root, Stack *stack);
 
 void inOrderTraversal(AVL_TreeNode *root, Stack *stack);
 
-void postOrderTraversal(AVL_TreeNode *root, Stack *stack);
+void postOrderTraversal(AVL_TreeNode *root);
 #endif //DEPTH_FIRST_SEARCH_H

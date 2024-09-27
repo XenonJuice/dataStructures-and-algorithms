@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "Depth-First-Search.h"
+
 /*only used in this file*/
 static AVL_TreeNode *getMAX(AVL_TreeNode *root);
 
@@ -300,6 +302,19 @@ void bfs(AVL_TreeNode *root) {
         }
     }
     destroyQueue(queue);
+}
+
+// @brief 前，中，后序遍历
+void preOrder(AVL_TreeNode *root) {
+    preOrderTraversal(root,NULL);
+}
+
+void inOrder(AVL_TreeNode *root) {
+    inOrderTraversal(root,NULL);
+}
+
+void postOrder(AVL_TreeNode *root) {
+    postOrderTraversal(root);
 }
 
 // @brief 销毁AVL树
