@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "AVL_TREE.h"
 #include "Heap.h"
 #include "LinkedList.h"
 #define RANGE 20
@@ -17,13 +18,21 @@ int main() {
     system("chcp 65001");
     printf("Hello, Excel!\n");
     // test the avl tree
-    // AVL_TreeNode *root = NULL;
-    // for (int i = 0; i < 20; i++) {
-    //     root = insert(root, i);
-    // }
+    AVL_TreeNode *root = NULL;
+    for (int i = 0; i < 20; i++) {
+        root = insert(root, i);
+    }
+    // 广度优先遍历
     // bfs(root);
-    // printTree(root, 0);
-    // destroyAVLTree(root);
+    // 深度有限遍历前中后序
+    preOrder(root);
+    printf("\n");
+    inOrder(root);
+    printf("\n");
+    postOrder(root);
+    printf("\n");
+    printTree(root, 0);
+    destroyAVLTree(root);
 
     // test the arraylist
     // ArrayList *list = initArrayList(10);
@@ -79,64 +88,64 @@ int main() {
     // heap_destroy(heap);
     // destroyArrayList(listRangeOneThousand);
 
-    //测试二分查找
-    ArrayList *binarySearchArrayList = initArrayList(10);
-    for (int i = 0; i < 10; i++) {
-        add(binarySearchArrayList, i);
-    }
-    printf("二分查找测试: \n");
-    for (int i = 0; i < 10; i++) {
-        int const binarySearchResult = binarySearch(binarySearchArrayList, i);
-        printf("二分查找结果: %d\n", binarySearchResult);
-    }
-    destroyArrayList(binarySearchArrayList);
-
-    // 冒泡排序测试
-    int const inttie[] = {7, 5, 6, 4, 2, 1, 3, 9, 8, 0};
-    ArrayList *bubbleSortArrayList = initArrayList(10);
-    for (int i = 0; i < 10; i++) {
-        add(bubbleSortArrayList, inttie[i]);
-    }
-    printf("冒泡排序测试: \n");
-    bubbleSort(bubbleSortArrayList);
-    destroyArrayList(bubbleSortArrayList);
-
-    // 选择排序测试
-    ArrayList *selectionSortArrayList = initArrayList(10);
-    for (int i = 0; i < 10; i++) {
-        add(selectionSortArrayList, inttie[i]);
-    }
-    printf("选择排序测试: \n");
-    selectionSort(selectionSortArrayList);
-    destroyArrayList(selectionSortArrayList);
-
-    // 插入排序测试
-    ArrayList *insertionSortArrayList = initArrayList(10);
-    for (int i = 0; i < 10; i++) {
-        add(insertionSortArrayList, inttie[i]);
-    }
-    printf("插入排序测试: \n");
-    insertionSort(insertionSortArrayList);
-    destroyArrayList(insertionSortArrayList);
-
-    // 冒泡排序测试
-    ArrayList *bubbleSortArrayListNo = initArrayList(10);
-    for (int i = 0; i < 10; i++) {
-        add(bubbleSortArrayListNo, i);
-    }
-    printf("冒泡排序测试: \n");
-    bubbleSort(bubbleSortArrayListNo);
-    destroyArrayList(bubbleSortArrayListNo);
-
-    // 快速排序测试
-    ArrayList *quickSortArrayList = initArrayList(10);
-    for (int i = 0; i < 10; i++) {
-        add(quickSortArrayList, inttie[i]);
-    }
-    printf("快速排序测试: \n");
-    quickSort(quickSortArrayList, 0, quickSortArrayList->index - 1);
-    printArrayList(quickSortArrayList);
-    destroyArrayList(quickSortArrayList);
+    // //测试二分查找
+    // ArrayList *binarySearchArrayList = initArrayList(10);
+    // for (int i = 0; i < 10; i++) {
+    //     add(binarySearchArrayList, i);
+    // }
+    // printf("二分查找测试: \n");
+    // for (int i = 0; i < 10; i++) {
+    //     int const binarySearchResult = binarySearch(binarySearchArrayList, i);
+    //     printf("二分查找结果: %d\n", binarySearchResult);
+    // }
+    // destroyArrayList(binarySearchArrayList);
+    //
+    // // 冒泡排序测试
+    // int const inttie[] = {7, 5, 6, 4, 2, 1, 3, 9, 8, 0};
+    // ArrayList *bubbleSortArrayList = initArrayList(10);
+    // for (int i = 0; i < 10; i++) {
+    //     add(bubbleSortArrayList, inttie[i]);
+    // }
+    // printf("冒泡排序测试: \n");
+    // bubbleSort(bubbleSortArrayList);
+    // destroyArrayList(bubbleSortArrayList);
+    //
+    // // 选择排序测试
+    // ArrayList *selectionSortArrayList = initArrayList(10);
+    // for (int i = 0; i < 10; i++) {
+    //     add(selectionSortArrayList, inttie[i]);
+    // }
+    // printf("选择排序测试: \n");
+    // selectionSort(selectionSortArrayList);
+    // destroyArrayList(selectionSortArrayList);
+    //
+    // // 插入排序测试
+    // ArrayList *insertionSortArrayList = initArrayList(10);
+    // for (int i = 0; i < 10; i++) {
+    //     add(insertionSortArrayList, inttie[i]);
+    // }
+    // printf("插入排序测试: \n");
+    // insertionSort(insertionSortArrayList);
+    // destroyArrayList(insertionSortArrayList);
+    //
+    // // 冒泡排序测试
+    // ArrayList *bubbleSortArrayListNo = initArrayList(10);
+    // for (int i = 0; i < 10; i++) {
+    //     add(bubbleSortArrayListNo, i);
+    // }
+    // printf("冒泡排序测试: \n");
+    // bubbleSort(bubbleSortArrayListNo);
+    // destroyArrayList(bubbleSortArrayListNo);
+    //
+    // // 快速排序测试
+    // ArrayList *quickSortArrayList = initArrayList(10);
+    // for (int i = 0; i < 10; i++) {
+    //     add(quickSortArrayList, inttie[i]);
+    // }
+    // printf("快速排序测试: \n");
+    // quickSort(quickSortArrayList, 0, quickSortArrayList->index - 1);
+    // printArrayList(quickSortArrayList);
+    // destroyArrayList(quickSortArrayList);
 
     // int arr20000[ARRAY_SIZE];
     // srand(time(NULL));
@@ -153,59 +162,59 @@ int main() {
     // destroyArrayList(quickSortArrayList20000);
 
     // 归并排序测试
-    ArrayList *mergeSortArrayList = initArrayList(ARRAY_SIZE);
+    // ArrayList *mergeSortArrayList = initArrayList(ARRAY_SIZE);
     // for (int i = 0; i < ARRAY_SIZE; i++) {
     //     add(mergeSortArrayList, arr20000[i]);
     // }
-    int smallArr[] = {2, 1};
-    for (int i = 0; i < 2; i++) {
-        add(mergeSortArrayList, smallArr[i]);
-    }
-    printf("归并排序测试: \n");
-    mergeSort(mergeSortArrayList);
-    destroyArrayList(mergeSortArrayList);
-
-    // 链表测试
-    LinkedListNode *head = createLinkedList(0);
-    for (int i = 1; i < 10; i++) {
-        insertLinkedList(head, i);
-    }
-    for (int i = 1; i < 10; i++) {
-        insertLinkedList(head, 5);
-    }
-    for (int i = 1; i < 10; i++) {
-        insertLinkedList(head, 6);
-    }
-
-    printf("链表测试 insert: \n");
-    printLinkedList(head);
-    printf("链表测试 delete: \n");
-    // deleteLinkedList(head, 3);
-    deleteLinkedList(head, 5);
-    printLinkedList(head);
-    printf("链表测试 search: \n");
-    int searchResult = searchLinkedList(head, 5);
-    printf("链表测试 search 标识符为: \n");
-    printf("%d\n", searchResult);
-    freeLinkedList(head);
-
-    // 链表测试 归并排序(迭代)
-    LinkedListNode *head2 = createLinkedList(0);
-    int numbers[TOTAL_NUMBERS];
-    int randomNumbers[RANDOM_COUNT];
-    srand(time(NULL));
-    for (int i = 0; i < TOTAL_NUMBERS; i++) {
-        numbers[i] = i + 1;
-    }
-    shuffle(numbers,TOTAL_NUMBERS);
-    for (int i = 0; i < RANDOM_COUNT; i++) {
-        randomNumbers[i] = numbers[i];
-        insertLinkedList(head2, randomNumbers[i]);
-    }
-    printf("链表测试 归并排序(迭代): \n");
-    LinkedListNode *sortedHead = mergeSortLinkedList(head2);
-    printLinkedList(sortedHead);
-    freeLinkedList(sortedHead);
+    // int smallArr[] = {2, 1};
+    // for (int i = 0; i < 2; i++) {
+    //     add(mergeSortArrayList, smallArr[i]);
+    // }
+    // printf("归并排序测试: \n");
+    // mergeSort(mergeSortArrayList);
+    // destroyArrayList(mergeSortArrayList);
+    //
+    // // 链表测试
+    // LinkedListNode *head = createLinkedList(0);
+    // for (int i = 1; i < 10; i++) {
+    //     insertLinkedList(head, i);
+    // }
+    // for (int i = 1; i < 10; i++) {
+    //     insertLinkedList(head, 5);
+    // }
+    // for (int i = 1; i < 10; i++) {
+    //     insertLinkedList(head, 6);
+    // }
+    //
+    // printf("链表测试 insert: \n");
+    // printLinkedList(head);
+    // printf("链表测试 delete: \n");
+    // // deleteLinkedList(head, 3);
+    // deleteLinkedList(head, 5);
+    // printLinkedList(head);
+    // printf("链表测试 search: \n");
+    // int searchResult = searchLinkedList(head, 5);
+    // printf("链表测试 search 标识符为: \n");
+    // printf("%d\n", searchResult);
+    // freeLinkedList(head);
+    //
+    // // 链表测试 归并排序(迭代)
+    // LinkedListNode *head2 = createLinkedList(0);
+    // int numbers[TOTAL_NUMBERS];
+    // int randomNumbers[RANDOM_COUNT];
+    // srand(time(NULL));
+    // for (int i = 0; i < TOTAL_NUMBERS; i++) {
+    //     numbers[i] = i + 1;
+    // }
+    // shuffle(numbers,TOTAL_NUMBERS);
+    // for (int i = 0; i < RANDOM_COUNT; i++) {
+    //     randomNumbers[i] = numbers[i];
+    //     insertLinkedList(head2, randomNumbers[i]);
+    // }
+    // printf("链表测试 归并排序(迭代): \n");
+    // LinkedListNode *sortedHead = mergeSortLinkedList(head2);
+    // printLinkedList(sortedHead);
+    // freeLinkedList(sortedHead);
     //getchar();
     return 0;
 }
