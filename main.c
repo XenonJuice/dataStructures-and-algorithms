@@ -10,7 +10,7 @@
 #include "LinkedList.h"
 #define RANGE 20
 #define TOPKSIZE 4
-#define ARRAY_SIZE 2
+#define ARRAY_SIZE 2000
 #define TOTAL_NUMBERS 1000
 #define RANDOM_COUNT 100
 
@@ -216,6 +216,21 @@ int main() {
     // printLinkedList(sortedHead);
     // freeLinkedList(sortedHead);
     //getchar();
+
+    //  桶排序测试
+    int arr20000[ARRAY_SIZE];
+    srand(time(NULL));
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        arr20000[i] = rand();
+    }
+    ArrayList *bucketSortArrayList = initArrayList(ARRAY_SIZE);
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        add(bucketSortArrayList, arr20000[i]);
+    }
+    printf("筒排序测试: \n");
+    bucketSort(bucketSortArrayList);
+    destroyArrayList(bucketSortArrayList);
+
     return 0;
 }
 
