@@ -4,6 +4,7 @@
 
 #include "ArrayList.h"
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -133,9 +134,9 @@ void printArrayList(const ArrayList *list) {
     printf("\n");
 }
 
-// 获取ArrayList的已使用长度
+// 获取ArrayList的长度
 int getLength(ArrayList *list) {
-    return list->index + 1;
+    return list->index; //+ 1;
 }
 
 // 获取ArrayList的容量
@@ -147,6 +148,32 @@ int getCapacity(ArrayList *list) {
 // 检查ArrayList的索引是否合法
 int checkRange(ArrayList *list, int index) {
     return index >= 0 && index <= list->index;
+}
+
+// 获取最大值
+int getMax(ArrayList *list) {
+    int *dataPtr = list->data;
+    int arrayIndex = list->index;
+    int max = *dataPtr;
+    for (int i = 1; i < arrayIndex; i++) {
+        if (*(dataPtr + i) > max) {
+            max = *(dataPtr + i);
+        }
+    }
+    return max;
+}
+
+// 获取最小值
+int getMin(ArrayList *list) {
+    int *dataPtr = list->data;
+    int arrayIndex = list->index;
+    int min = *dataPtr;
+    for (int i = 1; i < arrayIndex; i++) {
+        if (*(dataPtr + i) < min) {
+            min = *(dataPtr + i);
+        }
+    }
+    return min;
 }
 
 // 扩容
@@ -351,4 +378,60 @@ void quickSort(ArrayList *list, int left, int right) {
             right = i - 1;
         }
     }
+}
+
+// 桶排序
+void bucketSort(ArrayList *list) {
+    int *arr = list->data;
+    int n = list->index;
+    // 最小值和最大值
+    int min = getMin(list);
+    int max = getMax(list);
+    // 桶数量
+    int bucketCount = sqrt(getLength(list));
+    // 桶范围
+    int bucketSize = (max - min + 1) / bucketCount + 1;
+    // 初始化桶和元素数量指针
+    int **buckets = calloc(bucketCount, sizeof(int *));
+    int *bucketElements = calloc(bucketCount, sizeof(int));
+    // 将元素分配到桶中
+    for (int i = 0; i < n; i++) {
+        // 所在桶编号
+        int bucketIndex = (*(arr + i) - min) / bucketSize;
+        if (buckets[bucketIndex] == NULL) {
+            buckets[bucketIndex] = calloc(bucketSize, sizeof(int));
+        }
+        buckets[bucketIndex][bucketElements[bucketIndex]++] = *(arr + i);
+    }
+    // 对每个桶进行排序
+    for (int i = 0; i < bucketCount; i++) {
+        if (buckets[i] != NULL) {
+            ArrayList *tmpArray = initArrayList(bucketElements[i]);
+            for (int f = 0; f < bucketElements[i]; f++) {
+                add(tmpArray, buckets[i][f]);
+            }
+            // 使用插入排序对每个桶进行排序
+            insertionSort(tmpArray);
+            // 将排序后的元素复制回原数组
+            for (int f = 0; f < bucketElements[i]; f++) {
+                buckets[i][f] = tmpArray->data[f];
+            }
+            free(tmpArray->data);
+            free(tmpArray);
+        }
+    }
+    // 合并所有桶中的元素
+    int k = 0;
+    for (int i = 0; i < bucketCount; i++) {
+        if (buckets[i] != NULL) {
+            for (int j = 0; j < bucketElements[i]; j++) {
+                arr[k++] = buckets[i][j];
+            }
+            free(buckets[i]);
+        }
+    }
+    free(buckets);
+    free(bucketElements);
+    printf("桶排序：已排序\n");
+    printArrayList(list);
 }
