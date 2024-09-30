@@ -69,4 +69,7 @@ void mergeSort(ArrayList *list);
 // 快速排序
 void quickSort(ArrayList *list, int left, int right);
 
+// 桶排序
+void bucketSort(ArrayList *list);
+
 #endif //ARRAYLIST_H
