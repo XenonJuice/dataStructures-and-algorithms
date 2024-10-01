@@ -175,7 +175,7 @@ AVL_TreeNode *delete(AVL_TreeNode *root, int val) {
 }
 
 // 获取最大节点
-static AVL_TreeNode *getMAX(AVL_TreeNode *root) {
+AVL_TreeNode *getMAX(AVL_TreeNode *root) {
     if (root == NULL) {
         printf("树为空，无法获取最大节点。\n");
         return NULL;
@@ -189,7 +189,7 @@ static AVL_TreeNode *getMAX(AVL_TreeNode *root) {
 }
 
 // 获取最小节点
-static AVL_TreeNode *getMIN(AVL_TreeNode *root) {
+AVL_TreeNode *getMIN(AVL_TreeNode *root) {
     if (root == NULL) {
         printf("树为空，无法获取最大节点。\n");
         return NULL;
