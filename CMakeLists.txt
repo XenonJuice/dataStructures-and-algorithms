@@ -13,10 +13,8 @@ add_library(myWork STATIC
         ArrayList.c
         LinkedList.c
 )
-
-
-add_executable(hello.exe main.c)
-target_link_libraries(hello.exe myWork m)
+add_executable(hello main.c)
+target_link_libraries(hello myWork m)
 
 
 

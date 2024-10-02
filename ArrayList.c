@@ -7,6 +7,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 /*only used in this file*/
@@ -434,4 +435,30 @@ void bucketSort(ArrayList *list) {
     free(bucketElements);
     printf("桶排序：已排序\n");
     printArrayList(list);
+}
+
+// 计数排序
+void countingSort(ArrayList *list) {
+    int *arr = list->data;
+    int n = list->index;
+    int max = getMax(list);
+    int *count = calloc(max + 1, sizeof(int));
+    // count out the number of each element
+    for (int i = 0; i < n; i++) {
+        count[arr[i]]++;
+    }
+    // turn the number of each element to the prefix sum
+    for (int i = 0; i < max; i++) {
+        count[i + 1] += count[i];
+    }
+    int *res = malloc(sizeof(int) * n);
+    for (int i = n - 1; i >= 0; i--) {
+        int num = arr[i];
+        res[arr[num] - 1] = num;
+        count[num]--;
+    }
+    memcpy(arr, res, n * sizeof(int));
+    printf("计数排序：已排序\n");
+    printArrayList(list);
+    free(count);
 }
