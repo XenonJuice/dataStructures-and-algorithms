@@ -231,6 +231,9 @@ int main() {
     bucketSort(bucketSortArrayList);
     destroyArrayList(bucketSortArrayList);
 
+    // typedef unsigned char a;
+    // printf("sizeof(a)=%zu\n", sizeof(a));
+
     return 0;
 }
 

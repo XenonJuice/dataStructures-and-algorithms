@@ -72,4 +72,7 @@ void quickSort(ArrayList *list, int left, int right);
 // 桶排序
 void bucketSort(ArrayList *list);
 
+// 计数排序
+void countingSort(ArrayList *list);
+
 #endif //ARRAYLIST_H
