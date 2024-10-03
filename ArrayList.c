@@ -17,6 +17,13 @@ static ArrayList *shrinkArrayList(ArrayList *list);
 
 static void merge(int *arr, int left, int mid, int right);
 
+// 基数排序具体实现
+static void radixSortImp(ArrayList *list, int exp);
+
+// 获取数据特定位上的值
+static int getDigit(int num, int exp);
+
+
 // 初始化一个ArrayList，返回一个ArrayList指针
 ArrayList *initArrayList(int capacity) {
     ArrayList *list = malloc(sizeof(ArrayList));
@@ -454,11 +461,62 @@ void countingSort(ArrayList *list) {
     int *res = malloc(sizeof(int) * n);
     for (int i = n - 1; i >= 0; i--) {
         int num = arr[i];
-        res[arr[num] - 1] = num;
+        res[count[num] - 1] = num;
         count[num]--;
     }
     memcpy(arr, res, n * sizeof(int));
     printf("计数排序：已排序\n");
     printArrayList(list);
     free(count);
+}
+
+// 基数排序
+void radixSort(ArrayList *list) {
+    int max = getMax(list);
+    for (int exp = 1; exp <= max; exp = (exp << 3) + (exp << 1)) {
+        radixSortImp(list, exp);
+    }
+}
+
+// 基数排序具体实现
+void radixSortImp(ArrayList *list, int exp) {
+    int *arr = list->data;
+    int n = list->index;
+    const int RADIX = 10;
+    // 长度为 10 的桶数组，用于统计各数字出现次数
+    int *counter = calloc(RADIX, sizeof(int));
+    // 统计 0~9 各数字的出现次数
+    for (int i = 0; i < n; i++) {
+        // 获取 arr[i] 第 k 位，记为 d
+        int d = getDigit(arr[i], exp);
+        // 统计数字 d 的出现次数
+        counter[d]++;
+    }
+    // turn the number of each element to the prefix sum
+    for (int i = 1; i < RADIX; i++) {
+        counter[i] += counter[i - 1];
+    }
+    // 倒序遍历，根据桶内统计结果，将各元素填入 res
+    int *res = malloc(sizeof(int) * n);
+    for (int i = n - 1; i >= 0; i--) {
+        // 获取当前原数组中的元素 arr[i] 的第 个十百千万 位
+        int d = getDigit(arr[i], exp);
+        // 获取 d 在数组中的索引 j
+        int j = counter[d] - 1;
+        // 将当前元素填入索引 j
+        res[j] = arr[i];
+        // 将 d 的数量减 1
+        counter[d]--;
+    }
+    // 覆盖
+    memcpy(arr, res, n * sizeof(int));
+    printf("基数排序：\n");
+    printArrayList(list);
+    free(counter);
+    free(res);
+}
+
+// 获取数据特定位上的值
+int getDigit(int num, int exp) {
+    return num / exp % 10;
 }

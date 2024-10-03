@@ -75,4 +75,6 @@ void bucketSort(ArrayList *list);
 // 计数排序
 void countingSort(ArrayList *list);
 
+// 基数排序
+void radixSort(ArrayList *list);
 #endif //ARRAYLIST_H
