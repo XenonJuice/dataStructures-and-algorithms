@@ -10,7 +10,7 @@
 #include "LinkedList.h"
 #define RANGE 20
 #define TOPKSIZE 4
-#define ARRAY_SIZE 2000
+#define ARRAY_SIZE 20
 #define TOTAL_NUMBERS 1000
 #define RANDOM_COUNT 100
 
@@ -218,22 +218,48 @@ int main() {
     //getchar();
 
     //  桶排序测试
+    // int arr20000[ARRAY_SIZE];
+    // srand(time(NULL));
+    // for (int i = 0; i < ARRAY_SIZE; i++) {
+    //     arr20000[i] = rand();
+    // }
+    // ArrayList *bucketSortArrayList = initArrayList(ARRAY_SIZE);
+    // for (int i = 0; i < ARRAY_SIZE; i++) {
+    //     add(bucketSortArrayList, arr20000[i]);
+    // }
+    // printf("筒排序测试: \n");
+    // bucketSort(bucketSortArrayList);
+    // destroyArrayList(bucketSortArrayList);
+
+    // typedef unsigned char a;
+    // printf("sizeof(a)=%zu\n", sizeof(a));
+
+    // 计数排序测试
+    // int arr20000[ARRAY_SIZE];
+    // srand(time(NULL));
+    // for (int i = 0; i < ARRAY_SIZE; i++) {
+    //     arr20000[i] = rand();
+    // }
+    // ArrayList *countSortArrayList = initArrayList(ARRAY_SIZE);
+    // for (int i = 0; i < ARRAY_SIZE; i++) {
+    //     add(countSortArrayList, arr20000[i]);
+    // }
+    // printf("计数排序测试: \n");
+    // countingSort(countSortArrayList);
+    // destroyArrayList(countSortArrayList);
+    // 基数排序测试
     int arr20000[ARRAY_SIZE];
     srand(time(NULL));
     for (int i = 0; i < ARRAY_SIZE; i++) {
         arr20000[i] = rand();
     }
-    ArrayList *bucketSortArrayList = initArrayList(ARRAY_SIZE);
+    ArrayList *radixSortArrayList = initArrayList(ARRAY_SIZE);
     for (int i = 0; i < ARRAY_SIZE; i++) {
-        add(bucketSortArrayList, arr20000[i]);
+        add(radixSortArrayList, arr20000[i]);
     }
-    printf("筒排序测试: \n");
-    bucketSort(bucketSortArrayList);
-    destroyArrayList(bucketSortArrayList);
-
-    // typedef unsigned char a;
-    // printf("sizeof(a)=%zu\n", sizeof(a));
-
+    printf("计数排序测试: \n");
+    radixSort(radixSortArrayList);
+    destroyArrayList(radixSortArrayList);
     return 0;
 }
 
