@@ -251,7 +251,7 @@ int main() {
     int arr20000[ARRAY_SIZE];
     srand(time(NULL));
     for (int i = 0; i < ARRAY_SIZE; i++) {
-        arr20000[i] = rand();
+        arr20000[i] = rand() % 10000;  // 生成 0-9999 之间的数
     }
     ArrayList *radixSortArrayList = initArrayList(ARRAY_SIZE);
     for (int i = 0; i < ARRAY_SIZE; i++) {

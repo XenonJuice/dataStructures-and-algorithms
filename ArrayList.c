@@ -473,7 +473,7 @@ void countingSort(ArrayList *list) {
 // 基数排序
 void radixSort(ArrayList *list) {
     int max = getMax(list);
-    for (int exp = 1; exp <= max; exp = (exp << 3) + (exp << 1)) {
+    for (int exp = 1; max / exp > 0; exp = (exp << 3) + (exp << 1)) {
         radixSortImp(list, exp);
     }
 }
